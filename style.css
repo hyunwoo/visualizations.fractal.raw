@@ -1,0 +1,67 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Avenir', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#renderer {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
+.ui {
+    position: fixed;
+    width: 200px;
+    background: #fff;
+    left: 16px;
+    top: 16px;
+    padding: 4px 16px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    color: #ccc;
+}
+
+.ui > .separator {
+    height: 1px;
+    margin: 12px 0;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.input {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.input > .name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input > input[type=range], .input > input[type=color] {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.command {
+    margin-top: 12px;
+    width: 100%;
+    height: 32px;
+    background: #741730;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+.command:hover {
+    background: #8f1c3b;
+}
+
+
+
+
