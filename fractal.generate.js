@@ -3,17 +3,70 @@ function setup() {
   var canvas = createCanvas($root.width(), $root.height());
   canvas.parent('renderer');
 
-  fractalGenerator.generate();
+
+  $('.command[type=generate]').on('click', () => {
+    var inputs = $('input');
+    var dataSet = {};
+
+    for (var i = 0; i < inputs.length; i++) {
+      var $input = $(inputs[i]);
+      var $value = $input.siblings('.texts .value');
+      $input.on('change', () => {
+        console.log('??');
+        $value.text($input.val());
+      });
+      var val = $input.val();
+      var key = $input.attr('name');
+      dataSet[key] = val;
+    }
+
+    var fractalGenerator = new FractalGenerator(dataSet);
+    fractalGenerator.generate();
+  })
+
+  $('canvas').attr('id','renderer');
+
+
 }
 
+$('.command[type=download]').on('click', function () {
+  var canvas = document.getElementsByTagName('canvas')[0];
+  canvasToImage(canvas, {
+    name: 'line-fractal',
+    type: 'jpg',
+    quality: 1
+  });
+})
 
-function FractalGenerator() {
+var inputs = $('input');
+for (var i = 0; i < inputs.length; i++) {
+  var $input = $(inputs[i]);
+  $input.on('change', function () {
+    const $this = $(this);
+    const $target = $this.siblings('.texts').find('.value');
+    console.log($this, $target);
+    $target.text($(this).val());
+  });
+}
+
+$('.opener').on('click', function () {
+  var $ui = $('.ui');
+  if ($ui.attr('state') === 'open') {
+    $ui.attr('state', 'close');
+    $(this).text('OPEN SETTINGS');
+  } else {
+    $ui.attr('state', 'open');
+    $(this).text('CLOSE SETTINGS');
+  }
+});
+
+function FractalGenerator(option) {
   var that = this;
   // 선을 그릴 떄
   // 1. 점과 점 을 연결
   // 2. 시작점과 각도와 길이
 
-  var childBranchLengthRatio = 0.9;
+
   var startColor = '#ff0000';
   var endColor = '#0000ff';
 
@@ -37,27 +90,40 @@ function FractalGenerator() {
 
   this.drawLine = (x1, y1, degree, dist, depth) => {
 
-    if (depth > 5) return;
+    if (depth > option.depthCount) return;
 
     var radian = degree / 180 * Math.PI;
 
     var x2 = x1 + Math.cos(radian) * dist;
     var y2 = y1 + Math.sin(radian) * dist;
-    var c = that.lerpColor(startColor, endColor, depth / 5);
+    var c = that.lerpColor(option.startColor, option.endColor, depth / option.depthCount);
 
-    stroke(c.r, c.g, c.b);
+    // stroke(c.r, c.g, c.b);
+    var a = (1 - depth / option.depthCount) * 255;
+    stroke(c.r, c.g, c.b, a);
     strokeWeight(1);
     line(x1, y1, x2, y2);
 
     // var childCount = 2; // temp
-    that.drawLine(x2, y2, degree - 10, dist * childBranchLengthRatio, depth + 1);
-    that.drawLine(x2, y2, degree + 10, dist * childBranchLengthRatio, depth + 1);
+
+    var initAngle = degree - ((option.childCount - 1) * option.childAngle) / 2;
+    for (var i = 0; i < option.childCount; i++) {
+      that.drawLine(x2, y2,
+        initAngle + i * option.childAngle,
+        dist * option.childLengthRatio, depth + 1);
+    }
   };
 
 
   this.generate = () => {
-    for (var i = 0; i < 12; i++) {
-      that.drawLine(width / 2, height / 2, i * 30, 100, 1);
+    blendMode(BLEND);
+    background(0);
+    var createCount = option.branchCount * 1;
+    var diffAngle = 360 / createCount;
+
+    blendMode(ADD);
+    for (var i = 0; i < createCount; i++) {
+      that.drawLine(width / 2, height / 2, i * diffAngle, option.branchLength, 1);
     }
 
   };
@@ -69,11 +135,4 @@ function FractalGenerator() {
 function draw() {
 
 }
-
-
-var fractalGenerator = new FractalGenerator();
-
-
-var num = '0xff';
-console.log(num, Number(num));
 

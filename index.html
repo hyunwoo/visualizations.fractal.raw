@@ -5,55 +5,87 @@
   <script src="./lib/p5.min.js"></script>
   <script src="./lib/p5.dom.min.js"></script>
   <script src="./lib/p5.sound.min.js"></script>
+  <script src="./canvas-to-image.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="ui">
+<div class="ui" state="open">
   <!-- 여기가 조건 input-->
+  <div class="opener"> CLOSE SETTING</div>
   <div class="input">
-    <div class="name">Branch Count</div>
-    <input type="range" min="1" max="12" step="1" name="branchCount">
+    <div class="texts">
+      <div class="name">BRANCH COUNT</div>
+      <div class="value">6</div>
+    </div>
+    <input type="range" min="1" max="12" step="1" value="6" name="branchCount">
   </div>
 
   <div class="input">
-    <div class="name">Child Count</div>
-    <input type="range" min="1" max="12" step="1" name="childCount">
+    <div class="texts">
+      <div class="name">DEPTH COUNT</div>
+      <div class="value">5</div>
+    </div>
+    <input type="range" min="1" max="8" step="1" value="5" name="depthCount">
   </div>
 
   <div class="input">
-    <div class="name">Child Angle</div>
-    <input type="range" min="1" max="12" step="1" name="childAngle">
+    <div class="texts">
+      <div class="name">CHILD COUNT</div>
+      <div class="value">10</div>
+    </div>
+    <input type="range" min="1" max="12" step="1" value="10" name="childCount">
+  </div>
+
+  <div class="input">
+    <div class="texts">
+      <div class="name">CHILD ANGLE</div>
+      <div class="value">76</div>
+    </div>
+    <input type="range" min="1" max="120" step="1" value="76" name="childAngle">
   </div>
 
   <div class="separator"></div>
   <div class="input">
-    <div class="name">Branch Length</div>
-    <input type="range" min="1" max="12" step="1" name="branchLength">
+    <div class="texts">
+      <div class="name">BRANCH LENGTH</div>
+      <div class="value">120</div>
+    </div>
+    <input type="range" min="50" max="500" step="1" value="120" name="branchLength">
   </div>
 
   <div class="input">
-    <div class="name">Child Length Ratio</div>
-    <input type="range" min="1" max="12" step="1" name="childLengthRatio">
+    <div class="texts">
+      <div class="name">Child Length Ratio</div>
+      <div class="value">0.9</div>
+    </div>
+    <input type="range" min="0" max="1" step="0.01" value="0.9" name="childLengthRatio">
   </div>
 
   <div class="separator"></div>
 
   <div class="input">
-    <div class="name">Start Color</div>
+    <div class="texts">
+      <div class="name">START COLOR</div>
+      <div class="value">#ff075d</div>
+    </div>
     <input type="color" value="#ff075d" name="startColor">
   </div>
 
   <div class="input">
-    <div class="name">End Color</div>
-    <input type="color" value="#00b7e5" name="endColor">
+    <div class="texts">
+      <div class="name">END COLOR</div>
+      <div class="value">#51bffc</div>
+    </div>
+    <input type="color" value="#51bffc" name="endColor">
   </div>
 
   <div class="separator"></div>
   <!--여기서 부터 Command-->
-  <div class="command">Execute</div>
+  <div class="command" type="generate">Execute</div>
+  <div class="command" type="download">Download to Image</div>
 
 </div>
 <div id="renderer"></div>
