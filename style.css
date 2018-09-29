@@ -43,7 +43,7 @@ body {
 }
 
 .ui[state=open] {
-    max-height: 530px;
+    max-height: 600px;
 }
 
 .ui {
