@@ -1,7 +1,7 @@
 var img;
 
 function setup() {
-  img = loadImage('images_01.jpg');
+  img = loadImage('images/suwon_001.jpg');
   var $root = $('#renderer');
   var canvas = createCanvas($root.width(), $root.height());
   canvas.parent('renderer');
@@ -122,9 +122,10 @@ function FractalGenerator(option) {
   };
 
   this.generate = () => {
+
     blendMode(BLEND);
     background(0);
-    image(img, 0, 0, width * img.width / img.height, height);
+    image(img, 0, 0, width , height,0 ,0, img.width, img.height);
     var createCount = option.branchCount * 1;
     var diffAngle = 360 / createCount;
 
